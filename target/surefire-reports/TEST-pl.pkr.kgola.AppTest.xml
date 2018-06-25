@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="pl.pkr.kgola.AppTest" time="0" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="pl.pkr.kgola.AppTest" time="0.003" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="9.0.1+11"/>
@@ -29,7 +29,7 @@
     <property name="os.name" value="Windows 10"/>
     <property name="classworlds.conf" value="c:\Program Files\apache-maven-3.5.3\bin\..\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1250"/>
-    <property name="java.library.path" value="c:\Program Files\Java\jdk-9.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\MiKTeX 2.9\miktex\bin\x64\;C:\Program Files (x86)\Pinnacle\Shared Files\;C:\Program Files\PuTTY\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files (x86)\Autodesk\Backburner\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;d:\Program Files\MATLAB\R2011a\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk-9.0.1\bin;C:\Users\Artur\AppData\Local\Microsoft\WindowsApps;C:\Users\Artur\AppData\Local\GitHubDesktop\bin;C:\Users\Artur\AppData\Local\Microsoft\WindowsApps;c:\Program Files\apache-maven-3.5.3\bin\;;."/>
+    <property name="java.library.path" value="c:\Program Files\Java\jdk-9.0.1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\MiKTeX 2.9\miktex\bin\x64\;C:\Program Files (x86)\Pinnacle\Shared Files\;C:\Program Files\PuTTY\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files (x86)\Autodesk\Backburner\;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;d:\Program Files\MATLAB\R2011a\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk-9.0.1\bin;C:\Users\Artur\AppData\Local\Microsoft\WindowsApps;C:\Users\Artur\AppData\Local\GitHubDesktop\bin;C:\Users\Artur\AppData\Local\Microsoft\WindowsApps;c:\Program Files\apache-maven-3.5.3\bin\;;."/>
     <property name="maven.conf" value="c:\Program Files\apache-maven-3.5.3\bin\../conf"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="53.0"/>
@@ -64,5 +64,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="pl.pkr.kgola.AppTest" name="testApp" time="0"/>
+  <testcase classname="pl.pkr.kgola.AppTest" name="testApp" time="0.003"/>
 </testsuite>

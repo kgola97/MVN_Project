@@ -1,0 +1,1 @@
+java -cp target/MVN_Project-1.0-SNAPSHOT.jar pl.pkr.kgola.JFrameBiblio 
