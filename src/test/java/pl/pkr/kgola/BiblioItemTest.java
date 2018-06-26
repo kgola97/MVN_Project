@@ -1,11 +1,9 @@
 package pl.pkr.kgola;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
 
-//import junit.Test;
+import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit test for simple App.
@@ -14,7 +12,7 @@ public class BiblioItemTest
 {
 
 
-    //@Test
+    @Test
     public void shouldReturnCorrectFileName(){
         String fileName = "fileName";
 
@@ -26,7 +24,7 @@ public class BiblioItemTest
 
 
 
-    //@Test
+    @Test
     public void shouldReturnCorrectGetType() {
         String type = "TextDocument";
 

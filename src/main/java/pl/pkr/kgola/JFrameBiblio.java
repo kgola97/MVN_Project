@@ -1,3 +1,4 @@
+//package applicationbiblio;
 package pl.pkr.kgola;
 
 import java.io.BufferedReader;
@@ -40,7 +41,7 @@ interface Observer {
  */
 class Counter {
 
-    protected ArrayList<Observer> observers = new ArrayList<>();
+    protected List<Observer> observers = new ArrayList<Observer>();
 
     /**
      * dodaje obserwatora do kolejki
@@ -52,18 +53,6 @@ class Counter {
         if (observer != null) {
             observers.add(observer);
         }
-    }
-    
-    public void addObservers(List<Observer> observers) {
-
-        if (observers != null) {
-            this.observers.addAll(observers);
-        }
-    }
-    
-    public ArrayList<Observer> getObservers()
-    {
-        return observers;
     }
 
     /**
@@ -89,6 +78,14 @@ class Counter {
             }
         }
     }
+
+    public List<Observer> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
+    }
 }
 
 /**
@@ -104,10 +101,6 @@ class JStatisticLabel extends JLabel implements Observer {
     public JStatisticLabel() {
         super();
     }
-    
-    public int getScanFilesCount() {return scanFiles;}
-    
-    public int getTextFilesCount() {return textFiles;}
     
     /**
      * Resetuje liczniki.
@@ -136,6 +129,14 @@ class JStatisticLabel extends JLabel implements Observer {
        }
        setText("Obejrzanych plików tekstowych: " + textFiles + ", skanow: " + scanFiles);
        this.repaint();
+    }
+
+    public int getTextFiles() {
+        return textFiles;
+    }
+
+    public int getScanFiles() {
+        return scanFiles;
     }
 }
 
@@ -241,7 +242,7 @@ public class JFrameBiblio extends javax.swing.JFrame
         });
         jScrollPane2.setViewportView(jListItems);
 
-        jComboBoxState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tekstowy", "Zeskanowany" }));
+        jComboBoxState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tekstowy", "Zdjęcie" }));
 
         jLabelType.setText("Rodzaj pliku");
 
@@ -405,48 +406,28 @@ public class JFrameBiblio extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void openBiblioFile(String file)
-    {
-        ObjectInputStream iStream = null;
-            try {
-                baseFileName = file.toString();
-                iStream = new ObjectInputStream(new FileInputStream(baseFileName));
-                list = (ArrayList<BiblioItem>) iStream.readObject();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(JFrameBiblio.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(JFrameBiblio.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(JFrameBiblio.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-                    iStream.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(JFrameBiblio.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-    }
-    
     private void jMenuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOpenActionPerformed
         saveBase();
         fileChooser.setFileFilter(null);
-        if (fileChooser.showOpenDialog(jMenuItemOpen) == JFileChooser.APPROVE_OPTION) {
-            openBiblioFile(fileChooser.getSelectedFile().toString());
-            
-            for (int i = 0; i < list.size(); ++i) {
-                listModel.addElement(list.get(i).getFileName());
-            }
-            current = list.size() - 1;
-            jListItems.setSelectedIndex(current);
-            jListItems.ensureIndexIsVisible(current);
-            jButtonRemove.setEnabled(true);
-            jButtonAdd.setEnabled(false);
-            isModified = false;
 
-            list.get(current).show();
-            String info = list.get(current).toString();
-            this.setTitle(info);
+        DataReaderDAO dataReaderDAO = new DataReaderDAOImpl();
+        list = dataReaderDAO.getBiblioItems(fileChooser, jMenuItemOpen, file, baseFileName);
+
+        for (int i = 0; i < list.size(); ++i) {
+            listModel.addElement(list.get(i).getFileName());
         }
+
+        current = list.size() - 1;
+        jListItems.setSelectedIndex(current);
+        jListItems.ensureIndexIsVisible(current);
+        jButtonRemove.setEnabled(true);
+        jButtonAdd.setEnabled(false);
+        isModified = false;
+
+        list.get(current).show();
+        String info = list.get(current).toString();
+        this.setTitle(info);
+
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
@@ -702,7 +683,28 @@ public class JFrameBiblio extends javax.swing.JFrame
     }//GEN-LAST:event_jMenuItemSaveAsActionPerformed
 
     private void jMenuItemAuthorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAuthorsActionPerformed
-        JOptionPane.showMessageDialog(null, "Projekt zaliczeniowy\nAutorzy:\n", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Projekt zaliczeniowy: \"Biblioteka multimedialna\"\n" +
+                "Autorzy: Krzysztof Gola, Jakub Jamróz, Rafał Gierek, Marcin Jamróz, Bartłoiej Cipirski\n" +
+                "\n" +
+                "Dzięki naszemu programowi może łatwo i bez przeszkud stworzyć baze składającą się z plików txt oraz jpg,\n" +
+                " zapisać ją na komputrze a potem gdy tego potzebuje możemy ją otworzyć w każdym momencie. \n" +
+                "Dodatkowo pliki txt możemy wygodnie edytować bezpośrednio w programie.\n" +
+                "\n" +
+                "Sterowanie:\n" +
+                "-Tworzenie bazy: \n" +
+                "1. Klikamy \"plik\" po czym \"nowy\" \n" +
+                "2. wybieramy rodzaj pliku z listy: tekstowy lub jpg i\n" +
+                "3. Klikamy plik zródłowy i wybieramy iteresujący nas plik o własciwym rozszerzeniu które wybraliśmy wcześniej i klikamy \"open\"\n" +
+                "4. Wybrany plik pojawia nam się w oknie po prawej, jeśli jest on txt możemy go edytować.\n" +
+                "5. Nastepnie jeżeli chcemy takowy plik dodać do naszej bazy klikamy przcisk \"Dodaj\"\n" +
+                "6. Możemy również usuwać elementy naszej bazy dzięki przyciskowi \"Usuń\"\n" +
+                "7. Jeżeli nasza baza jest już gotowa klikamy \"Plik\" po czym zapisz jako i zapisuje nasz plik z roszerzenia  \".base\"\n" +
+                "\n" +
+                "\n" +
+                "-Otwieranie bazy:\n" +
+                "1. Klikamy \"plik\" po czym \"otwórz\" \n" +
+                "2. wybieramy naszą baze i klikamy \"open\"\n" +
+                "3. Po otowrzeniu bazy może znowu dodawać nowe elementy, usuwać stare, przeglądać zdjęcia i pliki txt oraz je edytować", "Informacja", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jMenuItemAuthorsActionPerformed
 
     /**

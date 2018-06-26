@@ -1,15 +1,15 @@
 package pl.pkr.kgola;
 
-import junit.framework.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 public class CounterTest {
 
-    //@Test
+    @Test
     public void shouldAddObserve() {
         Observer observer = new JStatisticLabel();
 
@@ -22,7 +22,7 @@ public class CounterTest {
         assertEquals(expectedListSize, counter.getObservers().size());
     }
 
-    //@Test
+    @Test
     public void shouldDeleteObserve() {
         Observer observer  = new JStatisticLabel();
 
@@ -30,7 +30,7 @@ public class CounterTest {
         observers.add(observer);
 
         Counter counter = new Counter();
-        counter.addObservers(observers);
+        counter.setObservers(observers);
 
         assertNotNull(counter.getObservers());
         assertTrue(counter.getObservers().size() == 1);
@@ -38,7 +38,7 @@ public class CounterTest {
         assertTrue(counter.getObservers().size() == 0);
     }
 
-    //@Test
+    @Test
     public void shouldNotifyAllObjects() {
         Counter counter = new Counter();
 
@@ -47,12 +47,12 @@ public class CounterTest {
         List<Observer> observers = new ArrayList<Observer>(3);
         observers.add(jStatisticLabel);
 
-        counter.addObservers(observers);
+        counter.setObservers(observers);
 
         String type = "Tekstowy";
         counter.notifyAllObject(type);
 
-        assertEquals(0, jStatisticLabel.getScanFilesCount());
-        assertEquals(1, jStatisticLabel.getTextFilesCount());
+        assertEquals(0, jStatisticLabel.getScanFiles());
+        assertEquals(1, jStatisticLabel.getTextFiles());
     }
 }

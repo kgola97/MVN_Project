@@ -4,11 +4,13 @@ pl\pkr\kgola\JFrameBiblio$13.class
 pl\pkr\kgola\TextDocument.class
 pl\pkr\kgola\JStatisticLabel.class
 pl\pkr\kgola\ScaneDocument.class
+pl\pkr\kgola\DataReaderDAO.class
 pl\pkr\kgola\JFrameBiblio$11.class
 pl\pkr\kgola\JFrameBiblio$1.class
 pl\pkr\kgola\JFrameBiblio$12.class
 pl\pkr\kgola\BiblioItem.class
 pl\pkr\kgola\JFrameBiblio$2.class
+pl\pkr\kgola\DataReaderDAOImpl.class
 pl\pkr\kgola\JFrameBiblio$6.class
 pl\pkr\kgola\Counter.class
 pl\pkr\kgola\JFrameBiblio$10.class
