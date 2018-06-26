@@ -1,4 +1,3 @@
-//package applicationbiblio;
 package pl.pkr.kgola;
 
 import java.io.BufferedReader;
@@ -14,6 +13,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.Position.Bias;
 import java.io.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,7 +40,7 @@ interface Observer {
  */
 class Counter {
 
-    protected ArrayList<Observer> observers = new ArrayList<Observer>();
+    protected ArrayList<Observer> observers = new ArrayList<>();
 
     /**
      * dodaje obserwatora do kolejki
@@ -52,6 +52,18 @@ class Counter {
         if (observer != null) {
             observers.add(observer);
         }
+    }
+    
+    public void addObservers(List<Observer> observers) {
+
+        if (observers != null) {
+            this.observers.addAll(observers);
+        }
+    }
+    
+    public ArrayList<Observer> getObservers()
+    {
+        return observers;
     }
 
     /**
@@ -92,6 +104,10 @@ class JStatisticLabel extends JLabel implements Observer {
     public JStatisticLabel() {
         super();
     }
+    
+    public int getScanFilesCount() {return scanFiles;}
+    
+    public int getTextFilesCount() {return textFiles;}
     
     /**
      * Resetuje liczniki.
@@ -389,13 +405,10 @@ public class JFrameBiblio extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOpenActionPerformed
-        saveBase();
-        fileChooser.setFileFilter(null);
-        if (fileChooser.showOpenDialog(jMenuItemOpen) == JFileChooser.APPROVE_OPTION) {
-            ObjectInputStream iStream = null;
+    private void openBiblioFile(String file)
+    {
+        ObjectInputStream iStream = null;
             try {
-                file = fileChooser.getSelectedFile();
                 baseFileName = file.toString();
                 iStream = new ObjectInputStream(new FileInputStream(baseFileName));
                 list = (ArrayList<BiblioItem>) iStream.readObject();
@@ -412,6 +425,14 @@ public class JFrameBiblio extends javax.swing.JFrame
                     Logger.getLogger(JFrameBiblio.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+    }
+    
+    private void jMenuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOpenActionPerformed
+        saveBase();
+        fileChooser.setFileFilter(null);
+        if (fileChooser.showOpenDialog(jMenuItemOpen) == JFileChooser.APPROVE_OPTION) {
+            openBiblioFile(fileChooser.getSelectedFile().toString());
+            
             for (int i = 0; i < list.size(); ++i) {
                 listModel.addElement(list.get(i).getFileName());
             }
